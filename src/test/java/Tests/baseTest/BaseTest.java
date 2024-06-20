@@ -11,7 +11,6 @@ import utilities.ScreenShot;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
-import java.net.MalformedURLException;
 
 public class BaseTest {
     protected WebDriver driver;
@@ -40,11 +39,14 @@ public class BaseTest {
     }
 
     private void setBrowser(String browser){
-        WebDriverManager.chromedriver().setup();
         switch (browser.toLowerCase()){
             case "chrome":
+                WebDriverManager.chromedriver().setup();
+
                 driver = new ChromeDriver();
             case"edge":
+                WebDriverManager.edgedriver().setup();
+
                 driver = new EdgeDriver();
         }
     }
