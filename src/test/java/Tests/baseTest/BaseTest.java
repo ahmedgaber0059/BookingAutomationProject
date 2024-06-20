@@ -17,7 +17,7 @@ public class BaseTest {
 
     @BeforeClass
     public void startDriver() {
-        setBrowser("edge");
+        setBrowser("chrome");
         navigateTo();
         ExtentReport.startReporting();
     }
