@@ -44,10 +44,12 @@ public class BaseTest {
                 WebDriverManager.chromedriver().setup();
 
                 driver = new ChromeDriver();
+                break;
             case"edge":
                 WebDriverManager.edgedriver().setup();
 
                 driver = new EdgeDriver();
+                break;
         }
     }
 
