@@ -75,5 +75,4 @@
               Regards.
             to: ${{ github.event.inputs.email_to }}
             attachments:
-              attachments/extentReports/*
-              attachments/screenshotsFailure/*
+              attachments/extentReports/*.html
