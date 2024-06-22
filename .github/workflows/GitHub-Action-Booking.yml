@@ -7,6 +7,10 @@ on:
   pull_request:
     branches:
       - master
+  workflow_dispatch:
+    inputs:
+      email_to:
+        description: 'Email address to send test results'
 
 jobs:
   build:
@@ -43,3 +47,14 @@ jobs:
 
       - name: Run tests
         run: mvn clean install
+
+
+
+    - name: Archive test results
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-results
+          path: |
+            attachments
+  
