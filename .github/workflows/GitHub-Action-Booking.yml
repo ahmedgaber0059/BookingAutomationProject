@@ -73,8 +73,8 @@
               Hi,
               The test report for ${{ github.repository }} ${{ github.sha }} has completed.
               Regards.
-            to: ${{ github.event.inputs.recipient_email }}
+            to: ${{ github.event.inputs.email_to }}
             attachments:
-              attachments/
-
+              attachments/extentReports/*
+              attachments/screenshotsFailure/*
 
