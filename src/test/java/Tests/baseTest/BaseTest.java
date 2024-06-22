@@ -28,8 +28,8 @@ public class BaseTest {
     }
 
     @AfterMethod
-    public void aftermethodT(ITestResult result) throws IOException {
-        ScreenShot.takeScreenShot(driver);
+    public void afterMethod(ITestResult result) throws IOException {
+        ScreenShot.takeScreenShot(driver, result);
         ExtentReport.logStatus(result, driver);
     }
 

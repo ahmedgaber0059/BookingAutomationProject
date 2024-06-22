@@ -2,16 +2,15 @@ package utilities;
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
-import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import org.openqa.selenium.WebDriver;
 import org.testng.ITestResult;
 
 import java.io.File;
-import java.io.IOException;
 import java.lang.reflect.Method;
-import java.time.LocalDate;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class ExtentReport {
 
@@ -23,9 +22,9 @@ public class ExtentReport {
 
 
     public static void startReporting()  {
-        String todayDate = LocalDate.now().toString();
-        String reportName = System.getProperty("user.dir") + "\\reports\\extentReports\\extentReport_" + todayDate + ".html";
-        sparkReporter = new ExtentSparkReporter(reportName+ ".html");
+        String timestamp = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+        String reportName = System.getProperty("user.dir") + "\\attachments\\extentReports\\extentReport_" + timestamp + ".html";
+        sparkReporter = new ExtentSparkReporter(reportName);
         extent = new ExtentReports();
         extent.attachReporter(sparkReporter);
     }
@@ -34,19 +33,24 @@ public class ExtentReport {
         test = extent.createTest(method.getName());
     }
 
-    public static void logStatus(ITestResult result) {
+    public static void logStatus(ITestResult result, WebDriver driver) {
+
         if (result.getStatus() == ITestResult.SUCCESS) {
             test.pass("Test passed");
         } else if (result.getStatus() == ITestResult.FAILURE) {
             test.fail("Test failed");
+            Throwable throwable = result.getThrowable();
+            test.fail(throwable);
+
         } else if (result.getStatus() == ITestResult.SKIP) {
             test.skip("Test skipped");
         }
+
     }
 
 
 
-    public static void logStatus(ITestResult result, WebDriver driver) throws IOException {
+/*    public static void logStatus(ITestResult result, WebDriver driver) throws IOException {
         String baseDir = System.getProperty("user.dir") + "//reports//";
         String pathFail = baseDir + "screenshotsFailure//" + result.getName() + ".png";
         String PathSkip = baseDir + "screenshotsSkip//" + result.getName() + ".png";
@@ -66,7 +70,7 @@ public class ExtentReport {
         } else if (result.getStatus() == ITestResult.SKIP) {
             test.skip("Test skipped", MediaEntityBuilder.createScreenCaptureFromPath(ScreenShot.captureScreenshot(PathSkip, driver)).build());
         }
-    }
+    }*/
     private static void createDirectory(String path) {
         File directory = new File(path);
         if (!directory.exists()) {
